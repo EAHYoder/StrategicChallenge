@@ -98,17 +98,18 @@ function App() {
 
   return (
     <div className="App">
-      <table>
+      <table data-testid="table">
         <thead>
           <tr>
-            <th>Creditor</th>
+            <th></th>
+            <th data-testid="CreditorHeader">Creditor</th>
             <th>First Name</th>
             <th>Last Name</th>
             <th>Min Pay %</th>
             <th>Balance</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody data-testid="tableBody">
           {debtsArr.map((debt) => {
             return (
               <tr key={debt.id}>
@@ -117,11 +118,14 @@ function App() {
                   onChange={() => handleCheckChange(debt)}
                   checked={debt.checked}
                 />
-                <td> {debt.creditorName}</td>
-                <td> {debt.firstName}</td>
+                <td data-testid={`debt${debt.id}Creditor`}>
+                  {" "}
+                  {debt.creditorName}
+                </td>
+                <td>{debt.firstName}</td>
                 <td> {debt.lastName}</td>
-                <td> {debt.minPaymentPercentage}</td>
-                <td> {debt.balance}</td>
+                <td> {debt.minPaymentPercentage}.00%</td>
+                <td> {debt.balance}.00</td>
               </tr>
             );
           })}
@@ -133,13 +137,15 @@ function App() {
             <td></td>
             <td></td>
             <td></td>
-            <td>{balanceTotal}</td>
+            <td>{balanceTotal}.00</td>
           </tr>
         </tfoot>
       </table>
       <p>Total Row Count: {debtsArr.length}</p>
       <p>Check Row Count: {checkedDebtsArr.length}</p>
-      <button onClick={addDebt}>Add Debt</button>
+      <button data-testid="addDebtButton" onClick={addDebt}>
+        Add Debt
+      </button>
       <button onClick={removeDebt}>Remove Debt</button>
     </div>
   );
